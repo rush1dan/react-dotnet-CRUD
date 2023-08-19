@@ -1,0 +1,12 @@
+.studentImageContainer {
+    background-color: aqua;
+    width: 16rem;
+    height: 16rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+}
+
+.studentImage {
+    object-fit: contain;
+}
