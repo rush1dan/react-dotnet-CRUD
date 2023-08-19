@@ -54,10 +54,7 @@ namespace DotNetCRUD.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
-            if (id != student.id)
-            {
-                return BadRequest();
-            }
+            student.id = id;
 
             _context.Entry(student).State = EntityState.Modified;
 
