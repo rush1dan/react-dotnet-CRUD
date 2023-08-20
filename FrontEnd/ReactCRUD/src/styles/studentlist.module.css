@@ -1,4 +1,9 @@
 .container {
+    width: 100%;
+    position: relative;
+}
+
+.tableContainer {
     height: 32rem;
     width: 100%;
     overflow-x: auto;
@@ -28,6 +33,14 @@
     border-bottom: 1px solid #bbbbbb;
 }
 
+.dataRow {
+    cursor: pointer;
+}
+
+.dataRow:hover {
+    background-color: #cccccc;
+}
+
 .edit {
     width: 6rem;
     background-color: #008cff;
@@ -46,4 +59,19 @@
 
 .delete:hover {
     background-color: #4b0c0c;
+}
+
+.add {
+    width: 10rem;
+    background-color: #2bffa7;
+    font-size: larger;
+    font-weight: bold;
+    margin-top: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add:hover {
+    background-color: #1add5b;
 }

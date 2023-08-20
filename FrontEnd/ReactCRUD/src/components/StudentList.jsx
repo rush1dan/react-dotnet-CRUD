@@ -24,53 +24,62 @@ export const StudentList = (props) => {
 
     return (
         <div className={styles.container}>
-            <table className={styles.studentTable}>
-                <thead>
-                    <tr>
+            <div className={styles.tableContainer}>
+                <table className={styles.studentTable}>
+                    <thead>
+                        <tr>
+                            {
+                                studentPropKeys.map((key, index) => {
+                                    const formattedHeading = formatHeadingFromKey(key);
+                                    return (
+                                        <th key={index} className={styles.cellHeading}>
+                                            {formattedHeading}
+                                        </th>
+                                    )
+                                })
+                            }
+                            <th className={styles.cellHeading}></th>
+                            <th className={styles.cellHeading}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            studentPropKeys.map((key, index) => {
-                                const formattedHeading = formatHeadingFromKey(key);
+                            displayStudents.map((student, index) => {
                                 return (
-                                    <th key={index} className={styles.cellHeading}>
-                                        {formattedHeading}
-                                    </th>
+                                    <tr key={index} className={styles.dataRow}>
+                                        {
+                                            studentPropKeys.map((key, index) => {
+                                                return (
+                                                    <td key={index} className={styles.cellData}>
+                                                        {student[key]}
+                                                    </td>
+                                                )
+                                            })
+                                        }
+                                        <td className={styles.cellData}>
+                                            <button className={styles.edit}>
+                                                Edit
+                                            </button>
+                                        </td>
+                                        <td className={styles.cellData}>
+                                            <button className={styles.delete}>
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
                                 )
                             })
                         }
-                        <th className={styles.cellHeading}></th>
-                        <th className={styles.cellHeading}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        displayStudents.map((student, index) => {
-                            return (
-                                <tr key={index}>
-                                    {
-                                        studentPropKeys.map((key, index) => {
-                                            return (
-                                                <td key={index} className={styles.cellData}>
-                                                    {student[key]}
-                                                </td>
-                                            )
-                                        })
-                                    }
-                                    <td className={styles.cellData}>
-                                        <button className={styles.edit}>
-                                            Edit                                            
-                                        </button>
-                                    </td>
-                                    <td className={styles.cellData}>
-                                        <button className={styles.delete}>
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Add Button */}
+            <div>
+                <button className={styles.add}>
+                    ADD
+                </button>
+            </div>
         </div>
     )
 }
