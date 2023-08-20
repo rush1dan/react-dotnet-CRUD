@@ -1,25 +1,49 @@
 .container {
     height: 32rem;
     width: 100%;
-    background-color: brown;
-    display: flex;
-    flex-direction: column;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
-.studentDetails {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.studentTable {
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 100%;
 }
 
-.property {
-
-}
-
-.property .heading {
+.cellHeading {
+    padding: 1rem;
     font-weight: bold;
+    color: #000;
+    font-size: larger;
+    border-bottom: 2px solid #000;
 }
 
-.property .desc {
-    font-weight: lighter;
+.cellData {
+    text-align: center;
+    color: #000;
+    font-size: large;
+    font-weight: 500;
+    padding: 0.75rem;
+    border-bottom: 1px solid #bbbbbb;
+}
+
+.edit {
+    width: 6rem;
+    background-color: #008cff;
+    font-size: large;
+}
+
+.edit:hover {
+    background-color: #463177;
+}
+
+.delete {
+    width: 6rem;
+    background-color: #bb1e1e;
+    font-size: large;
+}
+
+.delete:hover {
+    background-color: #4b0c0c;
 }

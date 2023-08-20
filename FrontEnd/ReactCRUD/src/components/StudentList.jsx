@@ -24,19 +24,21 @@ export const StudentList = (props) => {
 
     return (
         <div className={styles.container}>
-            <table>
+            <table className={styles.studentTable}>
                 <thead>
                     <tr>
                         {
                             studentPropKeys.map((key, index) => {
                                 const formattedHeading = formatHeadingFromKey(key);
                                 return (
-                                    <th key={index}>
+                                    <th key={index} className={styles.cellHeading}>
                                         {formattedHeading}
                                     </th>
                                 )
                             })
                         }
+                        <th className={styles.cellHeading}></th>
+                        <th className={styles.cellHeading}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,12 +49,22 @@ export const StudentList = (props) => {
                                     {
                                         studentPropKeys.map((key, index) => {
                                             return (
-                                                <td>
+                                                <td key={index} className={styles.cellData}>
                                                     {student[key]}
                                                 </td>
                                             )
                                         })
                                     }
+                                    <td className={styles.cellData}>
+                                        <button className={styles.edit}>
+                                            Edit                                            
+                                        </button>
+                                    </td>
+                                    <td className={styles.cellData}>
+                                        <button className={styles.delete}>
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             )
                         })
