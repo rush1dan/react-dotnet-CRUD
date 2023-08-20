@@ -1,0 +1,28 @@
+.container {
+    position: relative;
+}
+
+.studentImageContainer {
+    width: 16rem;
+    height: 16rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+    position: relative;
+}
+
+.studentImage {
+    width: 100%;
+    height: 100%;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: brown;
+    justify-content: center;
+    margin-top: 2rem;
+}

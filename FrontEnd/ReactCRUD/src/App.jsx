@@ -2,19 +2,17 @@ import { useState } from 'react'
 import './App.css'
 import { SelectedStudent } from './components/SelectedStudent'
 import { StudentList } from './components/StudentList'
-import { StudentPicture } from './components/StudentPicture'
+import demostudents from './demostudents.json'
 
 function App() {
 	return (
 		<div className='app'>
-			{/* Student DP */}
-			<StudentPicture src=""/>
-
-			{/* Selected Student */}
-			<SelectedStudent />
-
-			{/* Student List */}
-			<StudentList />
+			<div className='container'>
+				{/* Selected Student */}
+				{/* <SelectedStudent /> */}
+				{/* Student List */}
+				<StudentList students={demostudents} />
+			</div>
 		</div>
 	)
 }

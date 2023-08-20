@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "goku",
+        "age": 12,
+        "inClass": 5,
+        "grades": "A+"
+    },
+    {
+        "id": 2,
+        "name": "vegeta",
+        "age": 15,
+        "inClass": 7,
+        "grades": "B-"
+    },
+    {
+        "id": 3,
+        "name": "gohan",
+        "age": 5,
+        "inClass": 1,
+        "grades": "A"
+    },
+    {
+        "id": 4,
+        "name": "krillin",
+        "age": 12,
+        "inClass": 6,
+        "grades": "A+"
+    },
+    {
+        "id": 5,
+        "name": "yamcha",
+        "age": 11,
+        "inClass": 4,
+        "grades": "D-"
+    },
+    {
+        "id": 6,
+        "name": "Roshi",
+        "age":69,
+        "inClass": 19,
+        "grades": "F"
+    }
+]

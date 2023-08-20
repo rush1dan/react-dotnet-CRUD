@@ -1,0 +1,25 @@
+.container {
+    height: 32rem;
+    width: 100%;
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+}
+
+.studentDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.property {
+
+}
+
+.property .heading {
+    font-weight: bold;
+}
+
+.property .desc {
+    font-weight: lighter;
+}
