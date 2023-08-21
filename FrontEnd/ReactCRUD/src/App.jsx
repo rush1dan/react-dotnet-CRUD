@@ -11,7 +11,7 @@ function App() {
 				{/* Selected Student */}
 				{/* <SelectedStudent /> */}
 				{/* Student List */}
-				<StudentList students={demostudents} />
+				<StudentList />
 			</div>
 		</div>
 	)
