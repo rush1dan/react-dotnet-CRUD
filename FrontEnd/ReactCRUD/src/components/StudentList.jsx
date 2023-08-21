@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/studentlist.module.css'
-import { get, post } from '../apicalls'
+import { deleteEntry, get, post, put } from '../apicalls'
 
 export const StudentList = () => {
     const [fetchError, setFetchError] = useState(null);
     const [students, setStudents] = useState([]);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setStudents(await get());
-            } catch (error) {
-                setFetchError(error);
-            }
+    async function fetchData() {
+        try {
+            setStudents(await get());
+        } catch (error) {
+            setFetchError(error);
         }
+    }
+
+    useEffect(() => {
         fetchData();
     }, []);
 
-    const displayStudents = [];
-    let studentPropKeys = [];
+    function formatStudentDisplayData(studentData) {
+        const moddedData = { ...studentData };
+        delete moddedData.id;
+        return moddedData;
+    }
 
     function formatHeadingFromKey(key) {
         let moddedKey = key;
@@ -29,20 +33,38 @@ export const StudentList = () => {
         return moddedKey;
     }
 
+    let studentDataHeadings = [];
     if (students.length > 0) {
-        students.forEach(element => {
-            let modifiedRecord = { ...element };
-            delete modifiedRecord.id;
-            displayStudents.push(modifiedRecord);
-        });
-
-        studentPropKeys = displayStudents.length > 0 ? Object.keys(displayStudents[0]) : [];
+        studentDataHeadings = Object.keys(formatStudentDisplayData(students[0])).map((key) => formatHeadingFromKey(key));
     }
 
     async function postData(data) {
         try {
             const response = await post(data);
             console.log("Post Response: ", response);
+            await fetchData();
+        }
+        catch (error) {
+            console.log("Post Error: ", error);
+        }
+    }
+
+    async function editData(id, data) {
+        try {
+            const response = await put(id, data);
+            console.log("Post Response: ", response);
+            await fetchData();
+        }
+        catch (error) {
+            console.log("Post Error: ", error);
+        }
+    }
+
+    async function deleteData(id) {
+        try {
+            const response = await deleteEntry(id);
+            console.log("Post Response: ", response);
+            await fetchData();
         }
         catch (error) {
             console.log("Post Error: ", error);
@@ -63,11 +85,10 @@ export const StudentList = () => {
                         <thead>
                             <tr>
                                 {
-                                    studentPropKeys.map((key, index) => {
-                                        const formattedHeading = formatHeadingFromKey(key);
+                                    studentDataHeadings.map((heading, index) => {
                                         return (
                                             <th key={index} className={styles.cellHeading}>
-                                                {formattedHeading}
+                                                {heading}
                                             </th>
                                         )
                                     })
@@ -78,11 +99,12 @@ export const StudentList = () => {
                         </thead>
                         <tbody>
                             {
-                                displayStudents.map((student, index) => {
+                                students.map((student, index) => {
+                                    const keys = Object.keys(formatStudentDisplayData(student));
                                     return (
                                         <tr key={index} className={styles.dataRow}>
                                             {
-                                                studentPropKeys.map((key, index) => {
+                                                keys.map((key, index) => {
                                                     return (
                                                         <td key={index} className={styles.cellData}>
                                                             {student[key]}
@@ -91,12 +113,21 @@ export const StudentList = () => {
                                                 })
                                             }
                                             <td className={styles.cellData}>
-                                                <button className={styles.edit}>
+                                                <button className={styles.edit} onClick={(e) => {
+                                                    editData(student["id"], {
+                                                        "id": student["id"],
+                                                        "name": "Roshi",
+                                                        "age": 69,
+                                                        "inClass": 19,
+                                                        "grades": "F"
+                                                    });
+                                                    console.log("Edit Student with ID: ", student["id"]);
+                                                }}>
                                                     Edit
                                                 </button>
                                             </td>
                                             <td className={styles.cellData}>
-                                                <button className={styles.delete}>
+                                                <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
                                                     Delete
                                                 </button>
                                             </td>
