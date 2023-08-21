@@ -41,7 +41,7 @@ export const StudentList = () => {
 
     async function postData(data) {
         try {
-            response = await post(data);
+            const response = await post(data);
             console.log("Post Response: ", response);
         }
         catch (error) {
