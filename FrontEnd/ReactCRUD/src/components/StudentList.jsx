@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/studentlist.module.css'
-import { get } from '../apicalls'
+import { get, post } from '../apicalls'
 
 export const StudentList = () => {
     const [fetchError, setFetchError] = useState(null);
@@ -39,10 +39,20 @@ export const StudentList = () => {
         studentPropKeys = displayStudents.length > 0 ? Object.keys(displayStudents[0]) : [];
     }
 
+    async function postData(data) {
+        try {
+            response = await post(data);
+            console.log("Post Response: ", response);
+        }
+        catch (error) {
+            console.log("Post Error: ", error);
+        }
+    }
+
     return (
         <div className={styles.container}>
             {
-                fetchError && 
+                fetchError &&
                 <div>Error Fetching Data</div>
             }
 
@@ -101,7 +111,12 @@ export const StudentList = () => {
 
             {/* Add Button */}
             <div>
-                <button className={styles.add}>
+                <button className={styles.add} onClick={(e) => postData({
+                    "name": "goku",
+                    "age": 12,
+                    "inClass": 5,
+                    "grades": "A+"
+                })}>
                     ADD
                 </button>
             </div>

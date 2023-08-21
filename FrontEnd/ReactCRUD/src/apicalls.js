@@ -4,8 +4,24 @@ export async function get() {
             method: "GET",
             mode: "cors"
         });
-        const students = await response.json();
-        return students;
+        return await response.json();
+    }
+    catch(error) {
+        throw error;
+    }
+}
+
+export async function post(data) {
+    try {
+        const response = await fetch("http://localhost:5294/api/Student", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        return await response.json();
     }
     catch(error) {
         throw error;
