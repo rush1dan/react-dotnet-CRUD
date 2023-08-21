@@ -55,22 +55,22 @@ export const StudentList = () => {
     async function editData(id, data) {
         try {
             const response = await put(id, data);
-            console.log("Post Response: ", response);
+            console.log("Put Response: ", response);
             await fetchData();
         }
         catch (error) {
-            console.log("Post Error: ", error);
+            console.log("Put Error: ", error);
         }
     }
 
     async function deleteData(id) {
         try {
             const response = await deleteEntry(id);
-            console.log("Post Response: ", response);
+            console.log("Delete Response: ", response);
             await fetchData();
         }
         catch (error) {
-            console.log("Post Error: ", error);
+            console.log("Delete Error: ", error);
         }
     }
 
