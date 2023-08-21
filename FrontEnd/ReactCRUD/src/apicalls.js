@@ -8,7 +8,6 @@ export async function get() {
         return students;
     }
     catch(error) {
-        console.log(error);
-        return [];
+        throw error;
     }
 }
