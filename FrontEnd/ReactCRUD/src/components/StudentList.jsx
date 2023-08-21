@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/studentlist.module.css'
 import { deleteEntry, get, post, put } from '../apicalls'
+import { StudentForm } from './StudentForm';
 
 export const StudentList = () => {
     const [fetchError, setFetchError] = useState(null);
     const [students, setStudents] = useState([]);
+    const [formOpen, setFormOpen] = useState(false);
+    const [formData, setFormData] = useState({});
 
     async function fetchData() {
         try {
@@ -142,15 +145,18 @@ export const StudentList = () => {
 
             {/* Add Button */}
             <div>
-                <button className={styles.add} onClick={(e) => postData({
-                    "name": "goku",
-                    "age": 12,
-                    "inClass": 5,
-                    "grades": "A+"
-                })}>
+                <button className={styles.add} onClick={(e) => {
+                    setFormData({});
+                    setFormOpen(true);
+                }}>
                     ADD
                 </button>
             </div>
+
+            {
+                formOpen &&
+                <StudentForm studentData={ ...formData } />
+            }
         </div>
     )
 }
