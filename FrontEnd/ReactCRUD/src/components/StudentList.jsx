@@ -155,7 +155,7 @@ export const StudentList = () => {
 
             {
                 formOpen &&
-                <StudentForm studentData={ ...formData } />
+                <StudentForm studentData={...formData} onClose={() => { setFormOpen(false); setFormData({}); }} />
             }
         </div>
     )

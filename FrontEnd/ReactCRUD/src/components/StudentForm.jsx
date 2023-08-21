@@ -25,7 +25,7 @@ export const StudentForm = (props) => {
                     </div>
                     <button type='submit' className={styles.submit}>Submit</button>
                 </form>
-                <button className={styles.close}>
+                <button className={styles.close} onClick={props.onClose}>
                     &times;
                 </button>
             </div>
