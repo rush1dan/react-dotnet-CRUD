@@ -3,11 +3,16 @@ import styles from '../styles/studentlist.module.css'
 import { get } from '../apicalls'
 
 export const StudentList = () => {
+    const [fetchError, setFetchError] = useState(null);
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            setStudents(await get());
+            try {
+                setStudents(await get());
+            } catch (error) {
+                setFetchError(error);
+            }
         }
         fetchData();
     }, []);
@@ -36,6 +41,11 @@ export const StudentList = () => {
 
     return (
         <div className={styles.container}>
+            {
+                fetchError && 
+                <div>Error Fetching Data</div>
+            }
+
             {
                 students.length > 0 &&
                 <div className={styles.tableContainer}>
@@ -86,7 +96,8 @@ export const StudentList = () => {
                             }
                         </tbody>
                     </table>
-                </div>}
+                </div>
+            }
 
             {/* Add Button */}
             <div>
