@@ -8,6 +8,7 @@ export const StudentList = () => {
     const [students, setStudents] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
     const [formData, setFormData] = useState({});
+    const [formFunctionObj, setFormFunctionObj] = useState({});
 
     async function fetchData() {
         try {
@@ -117,13 +118,9 @@ export const StudentList = () => {
                                             }
                                             <td className={styles.cellData}>
                                                 <button className={styles.edit} onClick={(e) => {
-                                                    editData(student["id"], {
-                                                        "id": student["id"],
-                                                        "name": "Roshi",
-                                                        "age": 69,
-                                                        "inClass": 19,
-                                                        "grades": "F"
-                                                    });
+                                                    setFormData({ ...student });
+                                                    setFormFunctionObj({"submitFunc": (data) => editData(student["id"], data)});
+                                                    setFormOpen(true);
                                                     console.log("Edit Student with ID: ", student["id"]);
                                                 }}>
                                                     Edit
@@ -147,6 +144,7 @@ export const StudentList = () => {
             <div>
                 <button className={styles.add} onClick={(e) => {
                     setFormData({});
+                    setFormFunctionObj({ "submitFunc": (data) => postData(data) });
                     setFormOpen(true);
                 }}>
                     ADD
@@ -155,7 +153,7 @@ export const StudentList = () => {
 
             {
                 formOpen &&
-                <StudentForm studentData={...formData} onClose={() => { setFormOpen(false); setFormData({}); }} />
+                <StudentForm studentData={...formData} onSubmit={formFunctionObj} onClose={() => { setFormOpen(false); setFormData({}); }} />
             }
         </div>
     )
