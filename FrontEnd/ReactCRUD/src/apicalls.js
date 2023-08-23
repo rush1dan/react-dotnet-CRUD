@@ -1,6 +1,6 @@
 export async function get() {
     try {
-        const response = await fetch("http://localhost:5294/api/Student", {
+        const response = await fetch("http://localhost:5294/api/Students", {
             method: "GET",
             mode: "cors"
         });
@@ -13,7 +13,7 @@ export async function get() {
 
 export async function post(data) {
     try {
-        const response = await fetch("http://localhost:5294/api/Student", {
+        const response = await fetch("http://localhost:5294/api/Students", {
             method: "POST",
             mode: "cors",
             headers: {
@@ -30,7 +30,7 @@ export async function post(data) {
 
 export async function put(id, data) {
     try {
-        const response = await fetch(`http://localhost:5294/api/Student/${id}`, {
+        const response = await fetch(`http://localhost:5294/api/Students/${id}`, {
             method: "PUT",
             mode: "cors",
             headers: {
@@ -47,7 +47,7 @@ export async function put(id, data) {
 
 export async function deleteEntry(id) {
     try {
-        const response = await fetch(`http://localhost:5294/api/Student/${id}`, {
+        const response = await fetch(`http://localhost:5294/api/Students/${id}`, {
             method: "DELETE",
             mode: "cors",
             headers: {

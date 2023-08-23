@@ -1,18 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Postgrest.Attributes;
+using Postgrest.Models;
 
 namespace DotNetCRUD.Models
 {
+    [Table("students")]
     public class Student
     {
-        [Key]
+        [PrimaryKey("id", false)]
         public int id { get; set; }
-        [Required]
-        [Column(TypeName = "nvarchar(100)")]
+
+        [Column("name")]
         public string name { get; set; }
+
+        [Column("age")]
         public int age { get; set; }
+
+        [Column("inClass")]
         public int inClass { get; set; }
-        [Column(TypeName = "nvarchar(3)")]
+
+        [Column("grades")]
         public string grades { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using DotNetCRUD.Models;
 using Microsoft.EntityFrameworkCore;
+using Supabase;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,7 +19,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-//builder.Services.AddDbContext<StudentDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
+builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DevConnection")));
 
 var app = builder.Build();
 

@@ -11,34 +11,34 @@ namespace DotNetCRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentsController : ControllerBase
     {
         private readonly StudentDBContext _context;
 
-        public StudentController(StudentDBContext context)
+        public StudentsController(StudentDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Student
+        // GET: api/Students
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            if (_context.Students == null)
-            {
-                return NotFound();
-            }
+          if (_context.Students == null)
+          {
+              return NotFound();
+          }
             return await _context.Students.ToListAsync();
         }
 
-        // GET: api/Student/5
+        // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            if (_context.Students == null)
-            {
-                return NotFound();
-            }
+          if (_context.Students == null)
+          {
+              return NotFound();
+          }
             var student = await _context.Students.FindAsync(id);
 
             if (student == null)
@@ -49,15 +49,13 @@ namespace DotNetCRUD.Controllers
             return student;
         }
 
-        // PUT: api/Student/5
+        // PUT: api/Students/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
             if (id != student.id)
             {
-                Console.Write(id);
-                Console.Write(student.id);
                 return BadRequest();
             }
 
@@ -82,22 +80,22 @@ namespace DotNetCRUD.Controllers
             return NoContent();
         }
 
-        // POST: api/Student
+        // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            if (_context.Students == null)
-            {
-                return Problem("Entity set 'StudentDBContext.Students'  is null.");
-            }
+          if (_context.Students == null)
+          {
+              return Problem("Entity set 'StudentDBContext.Students'  is null.");
+          }
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStudent", new { id = student.id }, student);
         }
 
-        // DELETE: api/Student/5
+        // DELETE: api/Students/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
