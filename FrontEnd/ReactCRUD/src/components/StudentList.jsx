@@ -2,24 +2,40 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/studentlist.module.css'
 import { deleteEntry, get, post, put } from '../apicalls'
 import { StudentForm } from './StudentForm';
+import { StateFeedback } from './StateFeedback';
+
+export const DataState = { fail: -1, pending: 0, success: 1 };
 
 export const StudentList = () => {
-    const [fetchError, setFetchError] = useState(null);
     const [students, setStudents] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
     const [formData, setFormData] = useState({});
     const [formFunctionObj, setFormFunctionObj] = useState({});
 
-    async function fetchData() {
+    const [fetchState, setFetchState] = useState(DataState.pending);
+    const [stateMessage, setStateMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    async function fetchData(delay) {
         try {
+            setFetchState(DataState.pending);
+            setStateMessage("Fetching Students...");
+            if (delay) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
             setStudents(await get());
+            setFetchState(DataState.success);
+            setStateMessage("Success");
         } catch (error) {
-            setFetchError(error);
+            setFetchState(DataState.fail);
+            setStateMessage("Fetching Students Failed");
+            console.log("Fetch Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
     useEffect(() => {
-        fetchData();
+        fetchData(2000);
     }, []);
 
     function formatStudentDisplayData(studentData) {
@@ -42,45 +58,68 @@ export const StudentList = () => {
         studentDataHeadings = Object.keys(formatStudentDisplayData(students[0])).map((key) => formatHeadingFromKey(key));
     }
 
-    async function postData(data) {
+    async function postData(data, delay) {
         try {
+            setFetchState(DataState.pending);
+            setStateMessage("Adding Student...");
+            if (delay) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
             const response = await post(data);
+            setFetchState(DataState.success);
+            setStateMessage("Success");
             console.log("Post Response: ", response);
             await fetchData();
         }
         catch (error) {
+            setFetchState(DataState.fail);
+            setStateMessage("Adding Student Failed");
             console.log("Post Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
-    async function editData(id, data) {
+    async function editData(id, data, delay) {
         try {
+            setFetchState(DataState.pending);
+            setStateMessage("Editing Student...");
+            if (delay) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
             const response = await put(id, data);
             console.log("Put Response: ", response);
             await fetchData();
         }
         catch (error) {
+            setFetchState(DataState.fail);
+            setStateMessage("Editing Student Failed");
             console.log("Put Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
-    async function deleteData(id) {
+    async function deleteData(id, delay) {
         try {
+            setFetchState(DataState.pending);
+            setStateMessage("Deleting Student...");
+            if (delay) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
             const response = await deleteEntry(id);
             console.log("Delete Response: ", response);
             await fetchData();
         }
         catch (error) {
+            setFetchState(DataState.fail);
+            setStateMessage("Deleting Student Failed");
             console.log("Delete Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
     return (
         <div className={styles.container}>
-            {
-                fetchError &&
-                <div>Error Fetching Data</div>
-            }
+            <StateFeedback status={fetchState} text={stateMessage} errorMsg={errorMessage} timeOut={2000} />
 
             {
                 students.length > 0 &&
@@ -119,7 +158,7 @@ export const StudentList = () => {
                                             <td className={styles.cellData}>
                                                 <button className={styles.edit} onClick={(e) => {
                                                     setFormData({ ...student });
-                                                    setFormFunctionObj({"submitFunc": (data) => editData(student["id"], data)});
+                                                    setFormFunctionObj({"submitFunc": (data) => editData(student["id"], data, 2000)});
                                                     setFormOpen(true);
                                                     console.log("Edit Student with ID: ", student["id"]);
                                                 }}>
@@ -127,7 +166,7 @@ export const StudentList = () => {
                                                 </button>
                                             </td>
                                             <td className={styles.cellData}>
-                                                <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
+                                                <button className={styles.delete} onClick={(e) => deleteData(student["id"], 2000)}>
                                                     Delete
                                                 </button>
                                             </td>
@@ -144,7 +183,7 @@ export const StudentList = () => {
             <div>
                 <button className={styles.add} onClick={(e) => {
                     setFormData({});
-                    setFormFunctionObj({ "submitFunc": (data) => postData(data) });
+                    setFormFunctionObj({ "submitFunc": (data) => postData(data, 2000) });
                     setFormOpen(true);
                 }}>
                     ADD

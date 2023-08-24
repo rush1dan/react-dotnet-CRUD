@@ -1,0 +1,39 @@
+.container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.statusImg {
+    height: 2rem;
+    width: 2rem;
+}
+
+.statusText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+}
+
+.errorMsg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: red;
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+}
+
+.invisible {
+    visibility: hidden;
+}
