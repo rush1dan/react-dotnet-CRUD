@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DevConnection")));
+builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
 
 builder.Services.AddHealthChecks();
 var app = builder.Build();
