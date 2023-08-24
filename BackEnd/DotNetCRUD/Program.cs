@@ -21,7 +21,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DevConnection")));
 
+builder.Services.AddHealthChecks();
 var app = builder.Build();
+app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 
