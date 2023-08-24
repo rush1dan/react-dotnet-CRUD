@@ -11,7 +11,7 @@ export const StateFeedback = (props) => {
         setHide(false);
         clearTimeout(timeOutId);
 
-        if (props.timeOut) {
+        if (props.timeOut && props.status != DataState.pending) {
             setTimeOutId(setTimeout(() => setHide(true), props.timeOut));
         }
 
