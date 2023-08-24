@@ -62,7 +62,7 @@
 
 .add {
     width: 10rem;
-    background-color: #2bffa7;
+    background-color: #2bff9c;
     font-size: larger;
     font-weight: bold;
     margin-top: 2rem;
@@ -73,4 +73,24 @@
 
 .add:hover {
     background-color: #1add5b;
+}
+
+.buttonDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttonDisabled button {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.empty {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(255, 51, 0);
+    text-align: center;
 }

@@ -39,8 +39,8 @@ export const StateFeedback = (props) => {
                         {props.text}
                     </div>
                 </div>
-                <p className={`styles.errorMsg ${props.status == DataState.fail ? styles.invisible : ''}`}>
-                    {`Error: ${props.errorMsg}`}
+                <p className={styles.errorMsg}>
+                    {props.status == DataState.fail ? `Error: ${props.errorMsg}` : " "}
                 </p>
             </div>
         </>

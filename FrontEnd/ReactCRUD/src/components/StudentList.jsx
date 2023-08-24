@@ -122,65 +122,77 @@ export const StudentList = () => {
             <StateFeedback status={fetchState} text={stateMessage} errorMsg={errorMessage} timeOut={2000} />
 
             {
-                students.length > 0 &&
-                <div className={styles.tableContainer}>
-                    <table className={styles.studentTable}>
-                        <thead>
-                            <tr>
+                students.length > 0 ?
+                    // When students are there:
+                    <div className={styles.tableContainer}>
+                        <table className={styles.studentTable}>
+                            <thead>
+                                <tr>
+                                    {
+                                        studentDataHeadings.map((heading, index) => {
+                                            return (
+                                                <th key={index} className={styles.cellHeading}>
+                                                    {heading}
+                                                </th>
+                                            )
+                                        })
+                                    }
+                                    <th className={styles.cellHeading}></th>
+                                    <th className={styles.cellHeading}></th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {
-                                    studentDataHeadings.map((heading, index) => {
+                                    students.map((student, index) => {
+                                        const keys = Object.keys(formatStudentDisplayData(student));
                                         return (
-                                            <th key={index} className={styles.cellHeading}>
-                                                {heading}
-                                            </th>
+                                            <tr key={index} className={styles.dataRow}>
+                                                {
+                                                    keys.map((key, index) => {
+                                                        return (
+                                                            <td key={index} className={styles.cellData}>
+                                                                {student[key]}
+                                                            </td>
+                                                        )
+                                                    })
+                                                }
+                                                <td className={styles.cellData}>
+                                                    <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
+                                                        <button className={styles.edit} onClick={(e) => {
+                                                            setFormData({ ...student });
+                                                            setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data, 2000) });
+                                                            setFormOpen(true);
+                                                            console.log("Edit Student with ID: ", student["id"]);
+                                                        }}>
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td className={styles.cellData}>
+                                                    <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
+                                                        <button className={styles.delete} onClick={(e) => deleteData(student["id"], 2000)}>
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         )
                                     })
                                 }
-                                <th className={styles.cellHeading}></th>
-                                <th className={styles.cellHeading}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                students.map((student, index) => {
-                                    const keys = Object.keys(formatStudentDisplayData(student));
-                                    return (
-                                        <tr key={index} className={styles.dataRow}>
-                                            {
-                                                keys.map((key, index) => {
-                                                    return (
-                                                        <td key={index} className={styles.cellData}>
-                                                            {student[key]}
-                                                        </td>
-                                                    )
-                                                })
-                                            }
-                                            <td className={styles.cellData}>
-                                                <button className={styles.edit} onClick={(e) => {
-                                                    setFormData({ ...student });
-                                                    setFormFunctionObj({"submitFunc": (data) => editData(student["id"], data, 2000)});
-                                                    setFormOpen(true);
-                                                    console.log("Edit Student with ID: ", student["id"]);
-                                                }}>
-                                                    Edit
-                                                </button>
-                                            </td>
-                                            <td className={styles.cellData}>
-                                                <button className={styles.delete} onClick={(e) => deleteData(student["id"], 2000)}>
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div> :
+                    // When no students:
+                    (
+                        fetchState != DataState.pending &&
+                        <div className={styles.empty}>
+                            No Students In Database
+                        </div>
+                    )
             }
 
             {/* Add Button */}
-            <div>
+            <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
                 <button className={styles.add} onClick={(e) => {
                     setFormData({});
                     setFormFunctionObj({ "submitFunc": (data) => postData(data, 2000) });
