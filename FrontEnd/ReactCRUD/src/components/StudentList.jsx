@@ -35,7 +35,7 @@ export const StudentList = () => {
     }
 
     useEffect(() => {
-        fetchData(2000);
+        fetchData();
     }, []);
 
     function formatStudentDisplayData(studentData) {
@@ -160,7 +160,7 @@ export const StudentList = () => {
                                                     <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
                                                         <button className={styles.edit} onClick={(e) => {
                                                             setFormData({ ...student });
-                                                            setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data, 2000) });
+                                                            setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data) });
                                                             setFormOpen(true);
                                                             console.log("Edit Student with ID: ", student["id"]);
                                                         }}>
@@ -170,7 +170,7 @@ export const StudentList = () => {
                                                 </td>
                                                 <td className={styles.cellData}>
                                                     <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
-                                                        <button className={styles.delete} onClick={(e) => deleteData(student["id"], 2000)}>
+                                                        <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
                                                             Delete
                                                         </button>
                                                     </div>
@@ -195,7 +195,7 @@ export const StudentList = () => {
             <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
                 <button className={styles.add} onClick={(e) => {
                     setFormData({});
-                    setFormFunctionObj({ "submitFunc": (data) => postData(data, 2000) });
+                    setFormFunctionObj({ "submitFunc": (data) => postData(data) });
                     setFormOpen(true);
                 }}>
                     ADD
