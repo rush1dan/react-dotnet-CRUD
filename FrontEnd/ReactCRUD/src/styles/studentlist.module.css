@@ -32,6 +32,30 @@
     border-bottom: 1px solid #bbbbbb;
 }
 
+@media only screen and (max-width: 420px) {
+    .cellHeading {
+        padding: auto;
+        font-size: large;
+    }
+
+    .cellData {
+        padding: auto;
+        font-size: medium;
+    }
+
+    .edit {
+        width: 2rem;
+        font-size: medium;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .delete {
+        width: 2rem;
+        font-size: medium;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
 /* .dataRow {
     cursor: pointer;
 }
