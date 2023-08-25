@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import { SelectedStudent } from './components/SelectedStudent'
 import { StudentList } from './components/StudentList'
-import demostudents from './demostudents.json'
 
 function App() {
 	return (
