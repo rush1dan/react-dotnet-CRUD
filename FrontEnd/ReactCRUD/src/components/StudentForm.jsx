@@ -22,14 +22,14 @@ export const StudentForm = (props) => {
                         
                         {/* Form input div */}
                         <div className={styles.leftDiv}>
-                            <input name='name' type='text' defaultValue={props.studentData ? props.studentData.name : ''}
-                                placeholder='Name' className={styles.inputField} />
-                            <input name='age' type='number' min={0} defaultValue={props.studentData ? props.studentData.age : ''}
-                                placeholder='Age' className={styles.inputField} />
-                            <input name='inClass' type='number' min={0} defaultValue={props.studentData ? props.studentData.inClass : ''}
-                                placeholder='Class' className={styles.inputField} />
-                            <input name='grades' type='text' maxLength={2} defaultValue={props.studentData ? props.studentData.grades : ''}
-                                placeholder='Grades' className={styles.inputField} />
+                            <input name='name' type='text' defaultValue={Object.keys(props.studentData).length ? props.studentData.name : ''}
+                                placeholder='Name' className={styles.inputField} required />
+                            <input name='age' type='number' min={0} defaultValue={Object.keys(props.studentData).length ? props.studentData.age : ''}
+                                placeholder='Age' className={styles.inputField} required />
+                            <input name='inClass' type='number' min={0} defaultValue={Object.keys(props.studentData).length ? props.studentData.inClass : ''}
+                                placeholder='Class' className={styles.inputField} required />
+                            <input name='grades' type='text' maxLength={2} defaultValue={Object.keys(props.studentData).length ? props.studentData.grades : ''}
+                                placeholder='Grades' className={styles.inputField} required />
                         </div>
 
                         {/* Image upload div */}
