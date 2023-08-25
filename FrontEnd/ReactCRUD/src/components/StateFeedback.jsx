@@ -40,7 +40,7 @@ export const StateFeedback = (props) => {
                     showDisclaimer &&
                     <p className={styles.disclaimer}>
                         The api backend is hosted on render.com, where the machines in the free tier spin down after a duration of inactivity.
-                        So, there may be an initial loading time of up to <span className={styles.loadtime}>30s</span> when first making the api request.
+                        So, there may be an initial loading time of up to about <span className={styles.loadtime}>60s</span> when first making the api request.
                         Subseqent requests are faster.
                     </p>
                 }

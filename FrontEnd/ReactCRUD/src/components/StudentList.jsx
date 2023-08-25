@@ -204,7 +204,7 @@ export const StudentList = () => {
 
             {
                 formOpen &&
-                <StudentForm studentData={...formData} onSubmit={formFunctionObj} onClose={() => { setFormOpen(false); setFormData({}); }} />
+                <StudentForm studentData={{ ...formData }} onSubmit={formFunctionObj} onClose={() => { setFormOpen(false); setFormData({}); }} />
             }
         </div>
     )
