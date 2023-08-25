@@ -37,3 +37,20 @@
 .invisible {
     visibility: hidden;
 }
+
+.disclaimer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: inherit;
+    font-size: large;
+    color: #aaa;
+    font-style: italic;
+    font-weight: 500; 
+}
+
+.loadtime {
+    font-weight: bold;
+    font-size: larger;
+}

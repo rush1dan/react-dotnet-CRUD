@@ -19,6 +19,8 @@ export const StudentForm = (props) => {
             <div className={styles.modal}>
                 <form action="#" className={styles.form} onSubmit={(e) => handleFormSubmit(e)} ref={formRef}>
                     <div className={styles.formInput}>
+                        
+                        {/* Form input div */}
                         <div className={styles.leftDiv}>
                             <input name='name' type='text' defaultValue={props.studentData ? props.studentData.name : ''}
                                 placeholder='Name' className={styles.inputField} />
@@ -29,6 +31,8 @@ export const StudentForm = (props) => {
                             <input name='grades' type='text' maxLength={2} defaultValue={props.studentData ? props.studentData.grades : ''}
                                 placeholder='Grades' className={styles.inputField} />
                         </div>
+
+                        {/* Image upload div */}
                         <div className={styles.rightDiv}>
                             <div className={styles.image}>
                                 <img src="" alt="" />

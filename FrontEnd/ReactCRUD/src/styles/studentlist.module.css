@@ -32,13 +32,13 @@
     border-bottom: 1px solid #bbbbbb;
 }
 
-.dataRow {
+/* .dataRow {
     cursor: pointer;
 }
 
 .dataRow:hover {
-    background-color: #cccccc;
-}
+    background-color: #eee;
+} */
 
 .edit {
     width: 6rem;
@@ -47,17 +47,17 @@
 }
 
 .edit:hover {
-    background-color: #463177;
+    background-color: #1540ff;
 }
 
 .delete {
     width: 6rem;
-    background-color: #bb1e1e;
+    background-color: #ff0000;
     font-size: large;
 }
 
 .delete:hover {
-    background-color: #4b0c0c;
+    background-color: #c00000;
 }
 
 .add {
