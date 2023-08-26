@@ -1,8 +1,8 @@
 <div align="center">
-    <img src="./ReactDotNetCRUD.png" height="512" width="auto" />
     <h1>React DotNet CRUD</h1>
+    <img src="./ReactDotNetCRUD.png" height="384" width="auto" />
     <h2>Sample project showcasing CRUD operations with React on the frontend and .NetCore Web API with PostgreSQL on the backend</h2>
-    <a href="https://rush1dan-react-dotnet-crud.onrender.com"><h3>View Live Demo</h3></a>
+    <h3><a href="https://rush1dan-react-dotnet-crud.onrender.com">View Live Demo</a></h3>
 </div>
 
 ### About
@@ -11,10 +11,10 @@ This is basically a practise project for demonstrating my fullstack development 
 <hr/>
 
 ### Built With
-<div style="padding-left: 30px;">
+<div>
 <h4>Front End:</h4>
 
-<div style="padding-left: 30px;">
+<div>
 
 ![Static Badge](https://img.shields.io/badge/React-a?style=for-the-badge&logo=React&color=494f63)
 ![Static Badge](https://img.shields.io/badge/JavaScript-a?style=for-the-badge&logo=JavaScript&color=494f63)
@@ -24,7 +24,7 @@ This is basically a practise project for demonstrating my fullstack development 
 
 <h4>Back End:</h4>
 
-<div style="padding-left: 30px;">
+<div>
 
 ![Static Badge](https://img.shields.io/badge/.NETCore-a?style=for-the-badge&logo=.NET&logoColor=512bd4&color=494f63)
 ![Static Badge](https://img.shields.io/badge/PostgreSQL-a?style=for-the-badge&logo=PostgreSQL&logoColor=4169e1&color=494f63)
