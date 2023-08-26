@@ -18,4 +18,6 @@ RUN dotnet publish "DotNetCRUD.csproj" -c Release -o /app/publish /p:UseAppHost=
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV FRONTEND_URL=""
+ENV DB_PASSWORD=""
 ENTRYPOINT ["dotnet", "DotNetCRUD.dll"]

@@ -1,17 +1,17 @@
 using DotNetCRUD.Models;
 using Microsoft.EntityFrameworkCore;
-using Supabase;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
+string originURL = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+                          policy.WithOrigins(originURL).AllowAnyHeader().AllowAnyMethod();
                       });
 });
 
@@ -19,7 +19,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
+string dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
+string dbConnection = $"User Id=postgres;Password={dbPassword};Server=db.shzmkoeojizdcwpsnvwc.supabase.co;Port=5432;Database=postgres;";
+builder.Services.AddDbContext<StudentDBContext>(options => options.UseNpgsql(dbConnection));
 
 builder.Services.AddHealthChecks();
 var app = builder.Build();
