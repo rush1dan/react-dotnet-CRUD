@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>React DotNet CRUD</h1>
+    <h1>Full Stack CRUD App</h1>
     <img src="./ReactDotNetCRUD.png" height="384" width="auto" />
     <h2>Sample project showcasing CRUD operations with React on the frontend and .NetCore Web API with PostgreSQL on the backend</h2>
     <h3><a href="https://rush1dan-react-dotnet-crud.onrender.com" target="_blank">View Live Demo</a></h3>
