@@ -38,17 +38,24 @@ export const StudentList = () => {
         fetchData();
     }, []);
 
+    const infoToOmit = ['id', 'img'];
+
     function formatStudentDisplayData(studentData) {
         const moddedData = { ...studentData };
-        delete moddedData.id;
+        for (let i = 0; i < infoToOmit.length; i++) {
+            const element = infoToOmit[i];
+            delete moddedData[element];
+        }
         return moddedData;
+    }
+
+    const transformHeadings = {
+        "inClass": "class"
     }
 
     function formatHeadingFromKey(key) {
         let moddedKey = key;
-        if (moddedKey.toLowerCase().includes("class")) {
-            moddedKey = "class";
-        }
+        moddedKey = key in transformHeadings ? transformHeadings[key] : key;
         moddedKey = moddedKey.charAt(0).toUpperCase() + moddedKey.slice(1);
         return moddedKey;
     }
