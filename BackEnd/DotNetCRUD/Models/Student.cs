@@ -18,7 +18,10 @@ namespace DotNetCRUD.Models
         [Column("inClass")]
         public int inClass { get; set; }
 
-        [Column("grades")]
-        public string grades { get; set; }
+        [Column("Grades")]
+        public string? grades { get; set; }
+
+        [Column("image")]
+        public string? img { get; set; }
     }
 }
