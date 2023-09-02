@@ -1,5 +1,5 @@
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
-const apiURL = isDevelopment ? "http://localhost:5000/api/Students" : "https://dot-net-crud.onrender.com/api/Students";
+const apiURL = isDevelopment ? "http://localhost:5000/api/Students" : `${process.env.BACKEND_URL}/api/Students`;
 
 export async function get() {
     try {
