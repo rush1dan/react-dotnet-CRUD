@@ -8,7 +8,7 @@
 }
 
 .tableContainer {
-    height: 28rem;
+    max-height: 28rem;
     width: 100%;
     overflow-x: auto;
     overflow-y: auto;
