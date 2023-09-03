@@ -131,64 +131,69 @@ export const StudentList = () => {
             {
                 students.length > 0 ?
                     // When students are there:
-                    <div className={styles.tableContainer}>
-                        <table className={styles.studentTable}>
-                            <thead>
-                                <tr>
+                    <>
+                        <div className={styles.profileImageContainer}>
+                            <img src="/dp_placeholder.png" alt="" className={styles.profileImage} />
+                        </div>
+                        <div className={styles.tableContainer}>
+                            <table className={styles.studentTable}>
+                                <thead>
+                                    <tr>
+                                        {
+                                            studentDataHeadings.map((heading, index) => {
+                                                return (
+                                                    <th key={index} className={styles.cellHeading}>
+                                                        {heading}
+                                                    </th>
+                                                )
+                                            })
+                                        }
+                                        <th className={styles.cellHeading}></th>
+                                        <th className={styles.cellHeading}></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {
-                                        studentDataHeadings.map((heading, index) => {
+                                        students.map((student, index) => {
+                                            const keys = Object.keys(formatStudentDisplayData(student));
                                             return (
-                                                <th key={index} className={styles.cellHeading}>
-                                                    {heading}
-                                                </th>
+                                                <tr key={index} className={styles.dataRow}>
+                                                    {
+                                                        keys.map((key, index) => {
+                                                            return (
+                                                                <td key={index} className={styles.cellData}>
+                                                                    {student[key]}
+                                                                </td>
+                                                            )
+                                                        })
+                                                    }
+                                                    <td className={styles.cellData}>
+                                                        <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
+                                                            <button className={styles.edit} onClick={(e) => {
+                                                                setFormData({ ...student });
+                                                                setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data) });
+                                                                setFormOpen(true);
+                                                                console.log("Edit Student with ID: ", student["id"]);
+                                                            }}>
+                                                                Edit
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                    <td className={styles.cellData}>
+                                                        <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
+                                                            <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             )
                                         })
                                     }
-                                    <th className={styles.cellHeading}></th>
-                                    <th className={styles.cellHeading}></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    students.map((student, index) => {
-                                        const keys = Object.keys(formatStudentDisplayData(student));
-                                        return (
-                                            <tr key={index} className={styles.dataRow}>
-                                                {
-                                                    keys.map((key, index) => {
-                                                        return (
-                                                            <td key={index} className={styles.cellData}>
-                                                                {student[key]}
-                                                            </td>
-                                                        )
-                                                    })
-                                                }
-                                                <td className={styles.cellData}>
-                                                    <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
-                                                        <button className={styles.edit} onClick={(e) => {
-                                                            setFormData({ ...student });
-                                                            setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data) });
-                                                            setFormOpen(true);
-                                                            console.log("Edit Student with ID: ", student["id"]);
-                                                        }}>
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td className={styles.cellData}>
-                                                    <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
-                                                        <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </div> :
+                                </tbody>
+                            </table>
+                        </div>
+                    </> :
                     // When no students:
                     (
                         fetchState != DataState.pending &&
