@@ -43,7 +43,7 @@ export const StudentForm = (props) => {
                         {/* Image upload div */}
                         <div className={styles.rightDiv}>
                             <div >
-                                <img src={inputImage ? URL.createObjectURL(inputImage) : "/dp_placeholder.png"} alt="" className={styles.image} />
+                                <img src={inputImage ? URL.createObjectURL(inputImage) : (Object.keys(props.studentData).length ? null : "/dp_placeholder.png")} alt="" className={styles.image} />
                             </div>
                             <div className={styles.chooseImage}>
                                 <label className={styles.chooseImageButton}>

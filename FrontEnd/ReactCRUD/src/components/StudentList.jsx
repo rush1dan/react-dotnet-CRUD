@@ -16,6 +16,8 @@ export const StudentList = () => {
     const [stateMessage, setStateMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    const [selectedStudent, setSelectedStudent] = useState(null);
+
     async function fetchData(delay) {
         try {
             setFetchState(DataState.pending);
@@ -133,7 +135,7 @@ export const StudentList = () => {
                     // When students are there:
                     <>
                         <div className={styles.profileImageContainer}>
-                            <img src="/dp_placeholder.png" alt="" className={styles.profileImage} />
+                            <img src={selectedStudent ? (selectedStudent.img ?? "") : "/dp_placeholder.png"} alt="" className={styles.profileImage} />
                         </div>
                         <div className={styles.tableContainer}>
                             <table className={styles.studentTable}>
@@ -157,7 +159,7 @@ export const StudentList = () => {
                                         students.map((student, index) => {
                                             const keys = Object.keys(formatStudentDisplayData(student));
                                             return (
-                                                <tr key={index} className={styles.dataRow}>
+                                                <tr key={index} className={styles.dataRow} onClick={e => setSelectedStudent(student)}>
                                                     {
                                                         keys.map((key, index) => {
                                                             return (
