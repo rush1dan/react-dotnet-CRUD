@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '../styles/studentform.module.css'
 
 export const StudentForm = (props) => {
@@ -6,20 +6,28 @@ export const StudentForm = (props) => {
     function handleFormSubmit(event) {
         event.preventDefault();
         const formData = { "id": props.studentData.id };
-        //Get all fields except tha last one which is the image
-        for (let i = 0; i < event.target.length - 1; i++) {         
+        for (let i = 0; i < event.target.length - 1; i++) {
             formData[event.target[i].name] = event.target[i].value;
         }
+        formData.img = inputImage ? URL.createObjectURL(inputImage) : null;
         props.onSubmit.submitFunc(formData);
         formRef.current?.reset();
         props.onClose();
     }
+
+    const [inputImage, setInputImage] = useState(null);
+    useEffect(() => {
+        if (props.studentData.img) {
+            setInputImage(props.studentData.img);
+        }
+    }, [])
+
     return (
         <div className={styles.page}>
             <div className={styles.modal}>
                 <form action="#" className={styles.form} onSubmit={(e) => handleFormSubmit(e)} ref={formRef}>
                     <div className={styles.formInput}>
-                        
+
                         {/* Form input div */}
                         <div className={styles.leftDiv}>
                             <input name='name' type='text' defaultValue={Object.keys(props.studentData).length ? props.studentData.name : ''}
@@ -35,12 +43,21 @@ export const StudentForm = (props) => {
                         {/* Image upload div */}
                         <div className={styles.rightDiv}>
                             <div >
-                                <img src="/dp_placeholder.png" alt="" className={styles.image} />
+                                <img src={inputImage ? URL.createObjectURL(inputImage) : "/dp_placeholder.png"} alt="" className={styles.image} />
                             </div>
-                            <label className={styles.chooseImage}>
-                                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
-                                Choose File
-                            </label>
+                            <div className={styles.chooseImage}>
+                                <label className={styles.chooseImageButton}>
+                                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
+                                        defaultValue={inputImage}
+                                        onChange={e => setInputImage(e.target.files[0])} />
+                                    Choose File
+                                </label>
+                                <p className={styles.chooseImageFile}>
+                                    {
+                                        inputImage?.name
+                                    }
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <button type='submit' className={styles.submit}>Submit</button>
