@@ -8,7 +8,12 @@ export const StudentForm = (props) => {
 
     const [formState, setFormState] = useState(DataState.none);
 
-    async function uploadImage(imageFile) {
+    function getFileExtension(filename) {
+        var ext = /^.+\.([^.]+)$/.exec(filename);
+        return ext == null ? "" : ext[1];
+    }
+
+    async function uploadImage(imageFile, student) {
         const formData = new FormData();
         formData.append("file", imageFile);
         formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
@@ -27,20 +32,20 @@ export const StudentForm = (props) => {
 
     async function handleFormSubmit(event) {
         setFormState(DataState.pending);
-        const formData = { "id": props.studentData.id };
+        const formInfo = { "id": props.studentData.id };
         try {
             event.preventDefault();
             for (let i = 0; i < event.target.length - 1; i++) {
-                formData[event.target[i].name] = event.target[i].value;
+                formInfo[event.target[i].name] = event.target[i].value;
             }
-            const imageUploadResponse = await uploadImage(inputImage);
-            formData.img = imageUploadResponse.secure_url;
+            const imageUploadResponse = await uploadImage(inputImage, formInfo);
+            formInfo.img = imageUploadResponse.secure_url;
             setFormState(DataState.success);
         } catch (error) {
             console.log(error.message);
             setFormState(DataState.fail);
         }
-        props.onSubmit.submitFunc(formData);
+        props.onSubmit.submitFunc(formInfo);
         formRef.current?.reset();
         closeForm();
     }
