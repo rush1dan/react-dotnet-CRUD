@@ -3,16 +3,40 @@ import styles from '../styles/studentform.module.css'
 
 export const StudentForm = (props) => {
     const formRef = useRef(null);
-    function handleFormSubmit(event) {
-        event.preventDefault();
-        const formData = { "id": props.studentData.id };
-        for (let i = 0; i < event.target.length - 1; i++) {
-            formData[event.target[i].name] = event.target[i].value;
+
+    async function uploadImage(imageFile) {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+        formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
+        try {
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+                method: "POST",
+                body: formData
+            });
+            return await response.json();
         }
-        formData.img = inputImage ? URL.createObjectURL(inputImage) : null;
-        props.onSubmit.submitFunc(formData);
-        formRef.current?.reset();
-        props.onClose();
+        catch(error) {
+            throw error;
+        }
+    }
+
+    async function handleFormSubmit(event) {
+        try {
+            event.preventDefault();
+            const formData = { "id": props.studentData.id };
+            for (let i = 0; i < event.target.length - 1; i++) {
+                formData[event.target[i].name] = event.target[i].value;
+            }
+            //formData.img = inputImage ? URL.createObjectURL(inputImage) : null;
+            const imageUploadResponse = await uploadImage(inputImage);
+            formData.img = imageUploadResponse.secure_url;
+            props.onSubmit.submitFunc(formData);
+            formRef.current?.reset();
+            props.onClose();
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     const [inputImage, setInputImage] = useState(null);
@@ -21,6 +45,16 @@ export const StudentForm = (props) => {
             setInputImage(props.studentData.img);
         }
     }, [])
+    function handleImageSelection(imageFile) {
+        //If image size greater than 100KB
+
+        if (imageFile.size > 102400) {
+            console.error(`Image of size ${imageFile.size}B Too Large. Please Select Image of size < 100KB`);
+        }
+        else {
+            setInputImage(imageFile);
+        }
+    }
 
     return (
         <div className={styles.page}>
@@ -49,7 +83,7 @@ export const StudentForm = (props) => {
                                 <label className={styles.chooseImageButton}>
                                     <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
                                         defaultValue={inputImage}
-                                        onChange={e => setInputImage(e.target.files[0])} />
+                                        onChange={e => handleImageSelection(e.target.files[0])} />
                                     Choose File
                                 </label>
                                 <p className={styles.chooseImageFile}>
