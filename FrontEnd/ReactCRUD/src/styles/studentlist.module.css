@@ -133,6 +133,6 @@
 .profileImage {
     height: inherit;
     width: inherit;
-    object-fit: fill;
+    object-fit: contain;
     opacity: 0.35;
 }

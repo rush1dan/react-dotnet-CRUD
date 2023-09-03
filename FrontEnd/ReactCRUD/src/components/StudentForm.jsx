@@ -33,15 +33,15 @@ export const StudentForm = (props) => {
                         </div>
 
                         {/* Image upload div */}
-                        {/* <div className={styles.rightDiv}>
-                            <div className={styles.image}>
-                                <img src="" alt="" />
+                        <div className={styles.rightDiv}>
+                            <div >
+                                <img src="/dp_placeholder.png" alt="" className={styles.image} />
                             </div>
                             <label className={styles.chooseImage}>
                                 <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
                                 Choose File
                             </label>
-                        </div> */}
+                        </div>
                     </div>
                     <button type='submit' className={styles.submit}>Submit</button>
                 </form>
