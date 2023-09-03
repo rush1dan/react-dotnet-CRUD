@@ -28,6 +28,10 @@ export const StateFeedback = (props) => {
                 setImgSrc("/success.svg");
                 if (showDisclaimer) { setShowDisclaimer(false); }
                 break;
+            case DataState.none:
+                setShowDisclaimer(false);
+                setHide(true);
+                break;
             default:
                 break;
         }
@@ -35,7 +39,7 @@ export const StateFeedback = (props) => {
 
     return (
         <>
-            <div className={`styles.container ${hide ? styles.invisible : ''}`}>
+            <div className={`styles.container ${hide ? styles.invisible : ''}`} style={props.style}>
                 {
                     showDisclaimer &&
                     <p className={styles.disclaimer}>

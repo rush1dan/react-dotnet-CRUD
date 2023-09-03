@@ -4,7 +4,7 @@ import { deleteEntry, get, post, put } from '../apicalls'
 import { StudentForm } from './StudentForm';
 import { StateFeedback } from './StateFeedback';
 
-export const DataState = { fail: -1, pending: 0, success: 1 };
+export const DataState = { none: -2, fail: -1, pending: 0, success: 1 };
 
 export const StudentList = () => {
     const [students, setStudents] = useState([]);
@@ -128,7 +128,7 @@ export const StudentList = () => {
 
     return (
         <div className={styles.container}>
-            <StateFeedback status={fetchState} text={stateMessage} errorMsg={errorMessage} timeOut={2000} />
+            <StateFeedback status={fetchState} text={stateMessage} errorMsg={errorMessage} timeOut={2000} style={{}} />
 
             {
                 students.length > 0 ?
