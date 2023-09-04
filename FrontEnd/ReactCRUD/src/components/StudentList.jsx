@@ -18,7 +18,7 @@ export const StudentList = () => {
 
     const [selectedStudent, setSelectedStudent] = useState(null);
 
-    async function fetchData(delay) {
+    async function fetchData(delay, onComplete) {
         try {
             setFetchState(DataState.pending);
             setStateMessage("Fetching Students...");
@@ -28,6 +28,7 @@ export const StudentList = () => {
             setStudents(await get());
             setFetchState(DataState.success);
             setStateMessage("Success");
+            if (onComplete) { onComplete(); }
         } catch (error) {
             setFetchState(DataState.fail);
             setStateMessage("Fetching Students Failed");
@@ -67,7 +68,7 @@ export const StudentList = () => {
         studentDataHeadings = Object.keys(formatStudentDisplayData(students[0])).map((key) => formatHeadingFromKey(key));
     }
 
-    async function postData(data, delay) {
+    async function postData(data, delay, onComplete) {
         try {
             setFetchState(DataState.pending);
             setStateMessage("Adding Student...");
@@ -79,6 +80,7 @@ export const StudentList = () => {
             setStateMessage("Success");
             console.log("Post Response: ", response);
             await fetchData();
+            if (onComplete) { onComplete(); }
         }
         catch (error) {
             setFetchState(DataState.fail);
@@ -88,7 +90,7 @@ export const StudentList = () => {
         }
     }
 
-    async function editData(id, data, delay) {
+    async function editData(id, data, delay, onComplete) {
         try {
             setFetchState(DataState.pending);
             setStateMessage("Editing Student...");
@@ -98,6 +100,7 @@ export const StudentList = () => {
             const response = await put(id, data);
             console.log("Put Response: ", response);
             await fetchData();
+            if (onComplete) { onComplete(); }
         }
         catch (error) {
             setFetchState(DataState.fail);
@@ -107,7 +110,7 @@ export const StudentList = () => {
         }
     }
 
-    async function deleteData(id, delay) {
+    async function deleteData(id, delay, onComplete) {
         try {
             setFetchState(DataState.pending);
             setStateMessage("Deleting Student...");
@@ -117,6 +120,7 @@ export const StudentList = () => {
             const response = await deleteEntry(id);
             console.log("Delete Response: ", response);
             await fetchData();
+            if (onComplete) { onComplete(); }
         }
         catch (error) {
             setFetchState(DataState.fail);
@@ -173,7 +177,7 @@ export const StudentList = () => {
                                                         <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
                                                             <button className={styles.edit} onClick={(e) => {
                                                                 setFormData({ ...student });
-                                                                setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data) });
+                                                                setFormFunctionObj({ "submitFunc": (data) => editData(student["id"], data, 0, () => setSelectedStudent(data)) });
                                                                 setFormOpen(true);
                                                                 console.log("Edit Student with ID: ", student["id"]);
                                                             }}>
@@ -183,7 +187,7 @@ export const StudentList = () => {
                                                     </td>
                                                     <td className={styles.cellData}>
                                                         <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
-                                                            <button className={styles.delete} onClick={(e) => deleteData(student["id"])}>
+                                                            <button className={styles.delete} onClick={(e) => deleteData(student["id"], 0, () => setSelectedStudent(null))}>
                                                                 Delete
                                                             </button>
                                                         </div>
@@ -209,7 +213,7 @@ export const StudentList = () => {
             <div className={fetchState == DataState.pending ? styles.buttonDisabled : ''}>
                 <button className={styles.add} onClick={(e) => {
                     setFormData({});
-                    setFormFunctionObj({ "submitFunc": (data) => postData(data) });
+                    setFormFunctionObj({ "submitFunc": (data) => postData(data, 0, () => setSelectedStudent(data)) });
                     setFormOpen(true);
                 }}>
                     ADD
