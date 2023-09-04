@@ -68,11 +68,19 @@
 .image {
     width: 12rem;
     height: 12rem;
-    background-color: black;
+    object-fit: contain;
 }
 
 .chooseImage {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chooseImageButton {
+    display: inline-block;
     color: #000;
     background-color: #ddd;
     padding: 0.125rem 0.5rem;
@@ -81,7 +89,12 @@
     cursor: pointer;
 }
 
-.chooseImage:hover {
+.chooseImageFile {
+    color: #000;
+    font-size: small;
+}
+
+.chooseImageButton:hover {
     background-color: #ccc;
 }
 
